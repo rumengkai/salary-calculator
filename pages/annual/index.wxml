@@ -13,14 +13,14 @@
   <view class="input-group">
     <view class="input-label">年五险一金（个人）<text class="unit-tag">元/年</text></view>
     <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{annualSocialInsurance}}" bindinput="onInput" data-field="annualSocialInsurance" />
-    <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」自动计算：¥{{savedInsurance}} 元/年</view>
+    <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」自动计算：¥{{savedInsurance}} 元/年，<text class="link-text" bindtap="goToInsurance">去修改 ›</text></view>
     <view class="input-unit" wx:if="{{!savedInsurance}}">全年个人缴纳的社保+公积金合计。<text class="link-text" bindtap="goToInsurance">去配置五险一金 ›</text></view>
   </view>
 
   <view class="input-group">
     <view class="input-label">年专项附加扣除<text class="unit-tag">元/年</text></view>
     <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{annualSpecialDeductions}}" bindinput="onInput" data-field="annualSpecialDeductions" />
-    <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」自动计算：¥{{savedDeductions}} 元/年</view>
+    <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」自动计算：¥{{savedDeductions}} 元/年，<text class="link-text" bindtap="goToDeductions">去修改 ›</text></view>
     <view class="input-unit" wx:if="{{!savedDeductions}}">子女教育+继续教育+住房+赡养老人+婴幼儿照护年度合计。<text class="link-text" bindtap="goToDeductions">去配置专项扣除 ›</text></view>
   </view>
 

@@ -19,11 +19,12 @@ Page({
   },
 
   onLoad() {
-    // 读取缓存的输入数据
     const cache = wx.getStorageSync(CACHE_KEY);
     if (cache) {
       this.setData({
         monthlySalary: cache.monthlySalary || '',
+        socialInsurance: cache.socialInsurance || '',
+        specialDeductions: cache.specialDeductions || '',
       });
     }
 

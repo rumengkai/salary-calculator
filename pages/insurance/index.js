@@ -1,3 +1,5 @@
+const CACHE_KEY = 'insurancePageCache';
+
 Page({
   data: {
     socialBase: '',
@@ -15,30 +17,45 @@ Page({
   },
 
   onLoad() {
+    const cache = wx.getStorageSync(CACHE_KEY);
     const saved = wx.getStorageSync('insuranceConfig');
-    if (saved) {
+    const source = cache || saved;
+    if (source) {
       this.setData({
-        socialBase: String(saved.socialBase || ''),
-        fundBase: String(saved.fundBase || ''),
-        pensionRate: String(saved.pensionRate || '8'),
-        medicalRate: String(saved.medicalRate || '2'),
-        unemploymentRate: String(saved.unemploymentRate || '0.5'),
-        fundRate: String(saved.fundRate || '12'),
+        socialBase: String(source.socialBase || ''),
+        fundBase: String(source.fundBase || ''),
+        pensionRate: String(source.pensionRate || '8'),
+        medicalRate: String(source.medicalRate || '2'),
+        unemploymentRate: String(source.unemploymentRate || '0.5'),
+        fundRate: String(source.fundRate || '12'),
       });
       this.recalculate();
     }
+  },
+
+  saveCache() {
+    wx.setStorageSync(CACHE_KEY, {
+      socialBase: this.data.socialBase,
+      fundBase: this.data.fundBase,
+      pensionRate: this.data.pensionRate,
+      medicalRate: this.data.medicalRate,
+      unemploymentRate: this.data.unemploymentRate,
+      fundRate: this.data.fundRate,
+    });
   },
 
   onInput(e) {
     const field = e.currentTarget.dataset.field;
     this.setData({ [field]: e.detail.value });
     this.recalculate();
+    this.saveCache();
   },
 
   onRateInput(e) {
     const field = e.currentTarget.dataset.field;
     this.setData({ [field]: e.detail.value });
     this.recalculate();
+    this.saveCache();
   },
 
   recalculate() {
@@ -84,6 +101,7 @@ Page({
     };
 
     wx.setStorageSync('insuranceConfig', config);
+    wx.removeStorageSync(CACHE_KEY);
     wx.showToast({ title: '已保存', icon: 'success' });
     setTimeout(() => {
       wx.navigateBack();

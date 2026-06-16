@@ -22,6 +22,8 @@ Page({
       this.setData({
         bonus: cache.bonus || '',
         annualSalary: cache.annualSalary || '',
+        annualSocialInsurance: cache.annualSocialInsurance || '',
+        annualSpecialDeductions: cache.annualSpecialDeductions || '',
       });
     }
 
@@ -65,6 +67,8 @@ Page({
     wx.setStorageSync(CACHE_KEY, {
       bonus: this.data.bonus,
       annualSalary: this.data.annualSalary,
+      annualSocialInsurance: this.data.annualSocialInsurance,
+      annualSpecialDeductions: this.data.annualSpecialDeductions,
     });
   },
 

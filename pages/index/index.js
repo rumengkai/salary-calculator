@@ -51,4 +51,11 @@ Page({
   goToGuide() {
     wx.navigateTo({ url: '/pages/guide/index' });
   },
+
+  onShareAppMessage() {
+    return {
+      title: '个税计算器 — 工资/年终奖/汇算一键搞定',
+      path: '/pages/index/index',
+    };
+  },
 });

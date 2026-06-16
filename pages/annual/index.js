@@ -28,6 +28,8 @@ Page({
         annualRoyalty: cache.annualRoyalty || '',
         annualLicense: cache.annualLicense || '',
         seriousIllness: cache.seriousIllness || '',
+        annualSocialInsurance: cache.annualSocialInsurance || '',
+        annualSpecialDeductions: cache.annualSpecialDeductions || '',
       });
     }
 
@@ -74,6 +76,8 @@ Page({
       annualRoyalty: this.data.annualRoyalty,
       annualLicense: this.data.annualLicense,
       seriousIllness: this.data.seriousIllness,
+      annualSocialInsurance: this.data.annualSocialInsurance,
+      annualSpecialDeductions: this.data.annualSpecialDeductions,
     });
   },
 

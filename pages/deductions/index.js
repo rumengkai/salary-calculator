@@ -1,5 +1,7 @@
 const { calculateSpecialAdditionalDeductions } = require('../../utils/tax-engine');
 
+const CACHE_KEY = 'deductionsPageCache';
+
 Page({
   data: {
     config: {
@@ -18,24 +20,34 @@ Page({
   },
 
   onLoad() {
+    const cache = wx.getStorageSync(CACHE_KEY);
     const saved = wx.getStorageSync('deductionsConfig');
-    if (saved) {
-      this.setData({
-        config: {
-          childEducation: !!saved.childEducation,
-          continuingEducation: !!saved.continuingEducation,
-          housingLoan: !!saved.housingLoan,
-          housingRent: !!saved.housingRent,
-          elderlySupport: !!saved.elderlySupport,
-          babycare: !!saved.babycare,
-        },
-        childCount: saved.childEducation ? (saved.childEducation.count || 1) : 1,
-        babyCount: saved.babycare ? (saved.babycare.count || 1) : 1,
-        rentTier: saved.housingRent ? (saved.housingRent.tier || 1) : 1,
-        isOnlyChild: saved.elderlySupport ? (saved.elderlySupport.isOnlyChild !== false) : true,
-      });
-      this.updateSummary();
+    const source = cache || saved;
+    if (source) {
+      this.restoreFromSource(source);
     }
+  },
+
+  restoreFromSource(source) {
+    this.setData({
+      config: {
+        childEducation: !!source.childEducation,
+        continuingEducation: !!source.continuingEducation,
+        housingLoan: !!source.housingLoan,
+        housingRent: !!source.housingRent,
+        elderlySupport: !!source.elderlySupport,
+        babycare: !!source.babycare,
+      },
+      childCount: source.childEducation ? (source.childEducation.count || 1) : 1,
+      babyCount: source.babycare ? (source.babycare.count || 1) : 1,
+      rentTier: source.housingRent ? (source.housingRent.tier || 1) : 1,
+      isOnlyChild: source.elderlySupport ? (source.elderlySupport.isOnlyChild !== false) : true,
+    });
+    this.updateSummary();
+  },
+
+  saveCache() {
+    wx.setStorageSync(CACHE_KEY, this.buildStorageConfig());
   },
 
   onToggle(e) {
@@ -55,6 +67,7 @@ Page({
 
     this.setData({ [`config.${key}`]: value });
     this.updateSummary();
+    this.saveCache();
   },
 
   onStepper(e) {
@@ -64,16 +77,19 @@ Page({
     const newVal = Math.max(1, Math.min(10, current + dir));
     this.setData({ [key]: newVal });
     this.updateSummary();
+    this.saveCache();
   },
 
   onRentTier(e) {
     this.setData({ rentTier: parseInt(e.currentTarget.dataset.tier) });
     this.updateSummary();
+    this.saveCache();
   },
 
   onOnlyChild(e) {
     this.setData({ isOnlyChild: e.currentTarget.dataset.val === 'true' });
     this.updateSummary();
+    this.saveCache();
   },
 
   updateSummary() {
@@ -111,6 +127,7 @@ Page({
   save() {
     const storageConfig = this.buildStorageConfig();
     wx.setStorageSync('deductionsConfig', storageConfig);
+    wx.removeStorageSync(CACHE_KEY);
     wx.showToast({ title: '已保存', icon: 'success' });
     setTimeout(() => {
       wx.navigateBack();

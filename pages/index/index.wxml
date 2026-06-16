@@ -1,6 +1,9 @@
-<view class="page-header">
+<view class="page-header" style="position:relative;">
   <view class="page-title">个税计算器</view>
   <view class="page-subtitle">智能计算 · 一目了然</view>
+  <button class="share-btn" open-type="share">
+    <text class="share-icon">↗</text>
+  </button>
 </view>
 
 <view class="glass-card">
