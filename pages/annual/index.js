@@ -1,6 +1,8 @@
 const { calculateAnnualReconciliation, calculateSpecialAdditionalDeductions } = require('../../utils/tax-engine');
 const { formatCurrency, formatPercent, formatPercentDecimal } = require('../../utils/formatter');
 
+const CACHE_KEY = 'annualPageCache';
+
 Page({
   data: {
     annualSalary: '',
@@ -18,6 +20,25 @@ Page({
   },
 
   onLoad() {
+    const cache = wx.getStorageSync(CACHE_KEY);
+    if (cache) {
+      this.setData({
+        annualSalary: cache.annualSalary || '',
+        annualLabor: cache.annualLabor || '',
+        annualRoyalty: cache.annualRoyalty || '',
+        annualLicense: cache.annualLicense || '',
+        seriousIllness: cache.seriousIllness || '',
+      });
+    }
+
+    this.loadGlobalConfig();
+  },
+
+  onShow() {
+    this.loadGlobalConfig();
+  },
+
+  loadGlobalConfig() {
     const insuranceConfig = wx.getStorageSync('insuranceConfig');
     if (insuranceConfig && insuranceConfig.annualTotal > 0) {
       this.setData({
@@ -43,6 +64,25 @@ Page({
   onInput(e) {
     const field = e.currentTarget.dataset.field;
     this.setData({ [field]: e.detail.value });
+    this.saveCache();
+  },
+
+  saveCache() {
+    wx.setStorageSync(CACHE_KEY, {
+      annualSalary: this.data.annualSalary,
+      annualLabor: this.data.annualLabor,
+      annualRoyalty: this.data.annualRoyalty,
+      annualLicense: this.data.annualLicense,
+      seriousIllness: this.data.seriousIllness,
+    });
+  },
+
+  goToInsurance() {
+    wx.navigateTo({ url: '/pages/insurance/index' });
+  },
+
+  goToDeductions() {
+    wx.navigateTo({ url: '/pages/deductions/index' });
   },
 
   calculate() {

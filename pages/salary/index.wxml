@@ -14,7 +14,7 @@
     <view class="input-label">五险一金（个人月缴）<text class="unit-tag">元/月</text></view>
     <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{socialInsurance}}" bindinput="onInsuranceInput" />
     <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」读取：¥{{savedInsurance}} 元/月，可直接使用或修改</view>
-    <view class="input-unit" wx:if="{{!savedInsurance}}">不确定？去首页「五险一金」配置页输入基数和比例自动计算</view>
+    <view class="input-unit" wx:if="{{!savedInsurance}}">不确定？<text class="link-text" bindtap="goToInsurance">去配置五险一金 ›</text>（输入基数和比例自动计算）</view>
     <view class="input-unit" wx:if="{{monthlySalary && !savedInsurance}}">按默认比例22.5%估算：约 ¥{{defaultInsurance}} 元/月，建议查工资条确认</view>
   </view>
 
@@ -22,10 +22,8 @@
     <view class="input-label">专项附加扣除<text class="unit-tag">元/月</text></view>
     <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{specialDeductions}}" bindinput="onDeductionsInput" />
     <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」读取：¥{{savedDeductions}} 元/月</view>
-    <view class="input-unit" wx:if="{{!savedDeductions}}">包含子女教育、房贷/房租、赡养老人等，可去首页「专项扣除」配置</view>
+    <view class="input-unit" wx:if="{{!savedDeductions}}">包含子女教育、房贷/房租、赡养老人等。<text class="link-text" bindtap="goToDeductions">去配置专项扣除 ›</text></view>
   </view>
-
-  <button class="btn-primary" bindtap="calculate">开始计算</button>
 </view>
 
 <view class="glass-card-light" style="margin:0 32rpx;" wx:if="{{!result}}">
@@ -70,3 +68,9 @@
     </view>
   </view>
 </block>
+
+<view class="page-bottom-space"></view>
+
+<view class="btn-float-wrap">
+  <button class="btn-primary" bindtap="calculate">开始计算</button>
+</view>

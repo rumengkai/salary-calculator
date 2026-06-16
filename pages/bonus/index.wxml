@@ -20,17 +20,15 @@
     <view class="input-label">年五险一金（个人）<text class="unit-tag">元/年</text></view>
     <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{annualSocialInsurance}}" bindinput="onInput" data-field="annualSocialInsurance" />
     <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」读取：¥{{savedInsurance}} 元/年</view>
-    <view class="input-unit" wx:if="{{!savedInsurance}}">全年社保+公积金个人缴纳合计，影响并入方案计算</view>
+    <view class="input-unit" wx:if="{{!savedInsurance}}">全年社保+公积金个人缴纳合计。<text class="link-text" bindtap="goToInsurance">去配置五险一金 ›</text></view>
   </view>
 
   <view class="input-group">
     <view class="input-label">年专项附加扣除<text class="unit-tag">元/年</text></view>
     <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{annualSpecialDeductions}}" bindinput="onInput" data-field="annualSpecialDeductions" />
     <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」读取：¥{{savedDeductions}} 元/年</view>
-    <view class="input-unit" wx:if="{{!savedDeductions}}">全年专项附加扣除合计，影响并入方案税率档次</view>
+    <view class="input-unit" wx:if="{{!savedDeductions}}">全年专项附加扣除合计。<text class="link-text" bindtap="goToDeductions">去配置专项扣除 ›</text></view>
   </view>
-
-  <button class="btn-primary" bindtap="calculate">对比计算</button>
 </view>
 
 <view class="glass-card-light" style="margin:0 32rpx;" wx:if="{{!result}}">
@@ -112,3 +110,9 @@
     </view>
   </view>
 </block>
+
+<view class="page-bottom-space"></view>
+
+<view class="btn-float-wrap">
+  <button class="btn-primary" bindtap="calculate">对比计算</button>
+</view>

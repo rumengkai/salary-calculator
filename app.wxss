@@ -146,6 +146,26 @@ page {
   box-shadow: 0 8rpx 24rpx rgba(102, 126, 234, 0.35);
 }
 
+/* 浮动底部按钮 */
+.btn-float-wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 32rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, rgba(240, 242, 255, 0.95) 60%, rgba(240, 242, 255, 0));
+  z-index: 100;
+}
+
+.btn-float-wrap .btn-primary {
+  margin-top: 0;
+}
+
+.page-bottom-space {
+  height: 160rpx;
+}
+
 .btn-primary::after {
   border: none;
 }

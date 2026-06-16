@@ -1,6 +1,8 @@
 const { compareBonusMethods, calculateSpecialAdditionalDeductions } = require('../../utils/tax-engine');
 const { formatCurrency, formatPercent } = require('../../utils/formatter');
 
+const CACHE_KEY = 'bonusPageCache';
+
 Page({
   data: {
     bonus: '',
@@ -15,6 +17,22 @@ Page({
   },
 
   onLoad() {
+    const cache = wx.getStorageSync(CACHE_KEY);
+    if (cache) {
+      this.setData({
+        bonus: cache.bonus || '',
+        annualSalary: cache.annualSalary || '',
+      });
+    }
+
+    this.loadGlobalConfig();
+  },
+
+  onShow() {
+    this.loadGlobalConfig();
+  },
+
+  loadGlobalConfig() {
     const insuranceConfig = wx.getStorageSync('insuranceConfig');
     if (insuranceConfig && insuranceConfig.annualTotal > 0) {
       this.setData({
@@ -40,6 +58,22 @@ Page({
   onInput(e) {
     const field = e.currentTarget.dataset.field;
     this.setData({ [field]: e.detail.value });
+    this.saveCache();
+  },
+
+  saveCache() {
+    wx.setStorageSync(CACHE_KEY, {
+      bonus: this.data.bonus,
+      annualSalary: this.data.annualSalary,
+    });
+  },
+
+  goToInsurance() {
+    wx.navigateTo({ url: '/pages/insurance/index' });
+  },
+
+  goToDeductions() {
+    wx.navigateTo({ url: '/pages/deductions/index' });
   },
 
   calculate() {

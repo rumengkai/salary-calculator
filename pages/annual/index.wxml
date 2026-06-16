@@ -14,14 +14,14 @@
     <view class="input-label">年五险一金（个人）<text class="unit-tag">元/年</text></view>
     <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{annualSocialInsurance}}" bindinput="onInput" data-field="annualSocialInsurance" />
     <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」自动计算：¥{{savedInsurance}} 元/年</view>
-    <view class="input-unit" wx:if="{{!savedInsurance}}">全年个人缴纳的社保+公积金合计。不确定？去首页配置五险一金。</view>
+    <view class="input-unit" wx:if="{{!savedInsurance}}">全年个人缴纳的社保+公积金合计。<text class="link-text" bindtap="goToInsurance">去配置五险一金 ›</text></view>
   </view>
 
   <view class="input-group">
     <view class="input-label">年专项附加扣除<text class="unit-tag">元/年</text></view>
     <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{annualSpecialDeductions}}" bindinput="onInput" data-field="annualSpecialDeductions" />
     <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」自动计算：¥{{savedDeductions}} 元/年</view>
-    <view class="input-unit" wx:if="{{!savedDeductions}}">子女教育+继续教育+住房+赡养老人+婴幼儿照护年度合计</view>
+    <view class="input-unit" wx:if="{{!savedDeductions}}">子女教育+继续教育+住房+赡养老人+婴幼儿照护年度合计。<text class="link-text" bindtap="goToDeductions">去配置专项扣除 ›</text></view>
   </view>
 
   <view class="input-label" style="margin-top:32rpx;padding-top:24rpx;border-top:1rpx solid rgba(0,0,0,0.06);color:#999;font-size:24rpx;">以下为选填项（无则留空）</view>
@@ -49,8 +49,6 @@
     <input class="input-field" type="digit" placeholder="超出15000元的自付部分，无则留空" value="{{seriousIllness}}" bindinput="onInput" data-field="seriousIllness" />
     <view class="input-unit">医保目录范围内个人自付累计超过15000元的部分，年限额80000元</view>
   </view>
-
-  <button class="btn-primary" bindtap="calculate">计算年度应纳税额</button>
 </view>
 
 <view class="glass-card-light" style="margin:0 32rpx;" wx:if="{{!result}}">
@@ -88,3 +86,9 @@
     </view>
   </view>
 </block>
+
+<view class="page-bottom-space"></view>
+
+<view class="btn-float-wrap">
+  <button class="btn-primary" bindtap="calculate">计算年度应纳税额</button>
+</view>

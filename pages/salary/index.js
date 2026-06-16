@@ -1,6 +1,8 @@
 const { calculateMonthlySalaryTax, calculateSpecialAdditionalDeductions } = require('../../utils/tax-engine');
 const { formatCurrency, formatPercentDecimal } = require('../../utils/formatter');
 
+const CACHE_KEY = 'salaryPageCache';
+
 Page({
   data: {
     monthlySalary: '',
@@ -17,6 +19,23 @@ Page({
   },
 
   onLoad() {
+    // 读取缓存的输入数据
+    const cache = wx.getStorageSync(CACHE_KEY);
+    if (cache) {
+      this.setData({
+        monthlySalary: cache.monthlySalary || '',
+      });
+    }
+
+    this.loadGlobalConfig();
+  },
+
+  onShow() {
+    this.loadGlobalConfig();
+  },
+
+  loadGlobalConfig() {
+    // 读取五险一金配置
     const insuranceConfig = wx.getStorageSync('insuranceConfig');
     if (insuranceConfig && insuranceConfig.monthlyTotal > 0) {
       this.setData({
@@ -26,6 +45,7 @@ Page({
       });
     }
 
+    // 读取专项扣除配置
     const deductionsConfig = wx.getStorageSync('deductionsConfig');
     if (deductionsConfig) {
       const { monthlyTotal } = calculateSpecialAdditionalDeductions(deductionsConfig);
@@ -39,21 +59,37 @@ Page({
     }
   },
 
+  saveCache() {
+    wx.setStorageSync(CACHE_KEY, {
+      monthlySalary: this.data.monthlySalary,
+      socialInsurance: this.data.socialInsurance,
+      specialDeductions: this.data.specialDeductions,
+    });
+  },
+
   onSalaryInput(e) {
     const salary = e.detail.value;
     const defaultIns = salary ? Math.round(parseFloat(salary) * 0.225) : '';
-    this.setData({
-      monthlySalary: salary,
-      defaultInsurance: defaultIns,
-    });
+    this.setData({ monthlySalary: salary, defaultInsurance: defaultIns });
+    this.saveCache();
   },
 
   onInsuranceInput(e) {
     this.setData({ socialInsurance: e.detail.value });
+    this.saveCache();
   },
 
   onDeductionsInput(e) {
     this.setData({ specialDeductions: e.detail.value });
+    this.saveCache();
+  },
+
+  goToInsurance() {
+    wx.navigateTo({ url: '/pages/insurance/index' });
+  },
+
+  goToDeductions() {
+    wx.navigateTo({ url: '/pages/deductions/index' });
   },
 
   calculate() {
