@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/salary/index",
+    "pages/annual/index",
+    "pages/bonus/index",
+    "pages/deductions/index",
+    "pages/insurance/index",
+    "pages/guide/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#667eea",
+    "navigationBarTitleText": "个税计算器",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f0f2ff",
+    "backgroundTextStyle": "dark"
+  },
+  "sitemapLocation": "sitemap.json"
+}

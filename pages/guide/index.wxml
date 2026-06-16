@@ -1,0 +1,249 @@
+<view class="page-header">
+  <view class="page-title">个税知识速览</view>
+  <view class="page-subtitle">中国新版个人所得税法要点解读</view>
+</view>
+
+<!-- 基本概念 -->
+<view class="glass-card">
+  <view class="section-title">基本概念</view>
+  <view class="guide-text">
+    2019年1月1日起实施的新个税法，采用「综合与分类相结合」的税制模式。将工资薪金、劳务报酬、稿酬、特许权使用费四项合并为「综合所得」，统一适用3%-45%超额累进税率。
+  </view>
+  <view class="guide-highlight">
+    <text class="guide-highlight-label">免征额</text>
+    <text class="guide-highlight-value">5,000元/月（60,000元/年）</text>
+  </view>
+  <view class="guide-text" style="margin-top:16rpx;">
+    即月收入扣除五险一金后不超过5000元的部分不征税。这是基本减除费用，所有纳税人统一适用。
+  </view>
+</view>
+
+<!-- 税率表 -->
+<view class="glass-card">
+  <view class="section-title">综合所得税率表（年度）</view>
+  <view class="guide-text" style="margin-bottom:16rpx;">应纳税所得额 = 收入 - 60000 - 五险一金 - 专项附加扣除</view>
+  <view class="table-header">
+    <text class="table-cell table-cell-header">级数</text>
+    <text class="table-cell table-cell-header">应纳税所得额</text>
+    <text class="table-cell table-cell-header">税率</text>
+    <text class="table-cell table-cell-header">速算扣除</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">1</text>
+    <text class="table-cell">≤3.6万</text>
+    <text class="table-cell">3%</text>
+    <text class="table-cell">0</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">2</text>
+    <text class="table-cell">3.6-14.4万</text>
+    <text class="table-cell">10%</text>
+    <text class="table-cell">2520</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">3</text>
+    <text class="table-cell">14.4-30万</text>
+    <text class="table-cell">20%</text>
+    <text class="table-cell">16920</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">4</text>
+    <text class="table-cell">30-42万</text>
+    <text class="table-cell">25%</text>
+    <text class="table-cell">31920</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">5</text>
+    <text class="table-cell">42-66万</text>
+    <text class="table-cell">30%</text>
+    <text class="table-cell">52920</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">6</text>
+    <text class="table-cell">66-96万</text>
+    <text class="table-cell">35%</text>
+    <text class="table-cell">85920</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">7</text>
+    <text class="table-cell">>96万</text>
+    <text class="table-cell">45%</text>
+    <text class="table-cell">181920</text>
+  </view>
+</view>
+
+<!-- 累计预扣预缴 -->
+<view class="glass-card">
+  <view class="section-title">累计预扣预缴法</view>
+  <view class="guide-text">
+    每月工资个税采用「累计预扣预缴法」计算：
+  </view>
+  <view class="guide-formula">
+    当月应预扣税 = (累计收入 - 累计扣除) × 税率 - 速算扣除数 - 累计已预扣税
+  </view>
+  <view class="guide-text" style="margin-top:16rpx;">
+    这意味着随着年度累计收入增加，可能跨入更高税率档，导致下半年每月扣税增多。这是正常现象，全年税额与年度汇算结果一致。
+  </view>
+  <view class="guide-tip">
+    <text class="guide-tip-icon">💡</text>
+    <text class="guide-tip-text">年初月份税少、年末月份税多是累计预扣法的正常表现，不代表多交了税。</text>
+  </view>
+</view>
+
+<!-- 专项附加扣除 -->
+<view class="glass-card">
+  <view class="section-title">7项专项附加扣除（2024年标准）</view>
+  <view class="guide-text" style="margin-bottom:16rpx;">
+    专项附加扣除是在基本减除费用（5000元/月）之外，额外可以扣除的项目：
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">① 子女教育</view>
+    <view class="deduction-detail">每个子女每月2000元。涵盖3岁至博士阶段全程教育，父母可各扣50%或一方扣100%。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">② 继续教育</view>
+    <view class="deduction-detail">学历教育每月400元（最长48个月）；取得职业资格证书当年一次性扣3600元。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">③ 大病医疗</view>
+    <view class="deduction-detail">年度内医保目录范围自付超过15000元的部分，据实扣除，年限额80000元。次年汇算时扣除。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">④ 住房贷款利息</view>
+    <view class="deduction-detail">首套房贷每月1000元，最长240个月（20年）。与住房租金不可同时享受。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">⑤ 住房租金</view>
+    <view class="deduction-detail">直辖市/省会/计划单列市：1500元/月；人口>100万城市：1100元/月；其他：800元/月。与房贷利息不可同时享受。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">⑥ 赡养老人</view>
+    <view class="deduction-detail">独生子女每月3000元；非独生子女分摊，每人最多1500元/月。被赡养人需年满60周岁。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">⑦ 3岁以下婴幼儿照护</view>
+    <view class="deduction-detail">每个婴幼儿每月2000元。父母可各扣50%或一方扣100%。</view>
+  </view>
+</view>
+
+<!-- 年终奖 -->
+<view class="glass-card">
+  <view class="section-title">年终奖计税政策</view>
+  <view class="guide-text">
+    全年一次性奖金可选择两种计税方式：
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">方式一：单独计税</view>
+    <view class="deduction-detail">年终奖÷12，按月度税率表找到对应税率，对全额奖金计税。适合年薪较高、年终奖适中的情况。</view>
+  </view>
+
+  <view class="deduction-item">
+    <view class="deduction-name">方式二：并入综合所得</view>
+    <view class="deduction-detail">年终奖加入全年工资一起按年度税率表计税。适合年薪较低、年终奖不高的情况，可充分利用免征额。</view>
+  </view>
+
+  <view class="guide-tip">
+    <text class="guide-tip-icon">⚠️</text>
+    <text class="guide-tip-text">注意「税率陷阱」：年终奖36000、144000、300000、420000、660000、960000为临界点，多发1元可能多交数千元税。建议使用本工具的年终奖对比功能精确计算。</text>
+  </view>
+</view>
+
+<!-- 年度汇算 -->
+<view class="glass-card">
+  <view class="section-title">年度汇算清缴</view>
+  <view class="guide-text">
+    每年3月1日至6月30日，需办理上一年度综合所得汇算清缴。可能需要补税或获得退税。
+  </view>
+
+  <view class="guide-text" style="margin-top:16rpx;font-weight:500;">需要汇算的情况：</view>
+  <view class="guide-list">
+    <view class="guide-list-item">• 年收入>12万元且补税>400元</view>
+    <view class="guide-list-item">• 有劳务报酬、稿酬、特许权使用费收入</view>
+    <view class="guide-list-item">• 有多处工资收入</view>
+    <view class="guide-list-item">• 年中换工作导致扣除不充分</view>
+    <view class="guide-list-item">• 有大病医疗等年度扣除项目</view>
+  </view>
+
+  <view class="guide-text" style="margin-top:16rpx;font-weight:500;">可能获得退税的情况：</view>
+  <view class="guide-list">
+    <view class="guide-list-item">• 预扣税率高于全年实际税率（如年中离职）</view>
+    <view class="guide-list-item">• 有符合条件的专项附加扣除未及时申报</view>
+    <view class="guide-list-item">• 有符合条件的公益捐赠未扣除</view>
+    <view class="guide-list-item">• 劳务报酬预扣税率20%-40%高于汇算实际税率</view>
+  </view>
+</view>
+
+<!-- 五险一金 -->
+<view class="glass-card">
+  <view class="section-title">五险一金参考比例</view>
+  <view class="guide-text" style="margin-bottom:16rpx;">
+    五险一金个人缴纳部分可在税前扣除（各地略有差异）：
+  </view>
+  <view class="table-header">
+    <text class="table-cell table-cell-header">项目</text>
+    <text class="table-cell table-cell-header">个人比例</text>
+    <text class="table-cell table-cell-header">说明</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">养老保险</text>
+    <text class="table-cell">8%</text>
+    <text class="table-cell">全国统一</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">医疗保险</text>
+    <text class="table-cell">2%</text>
+    <text class="table-cell">各地略有差异</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">失业保险</text>
+    <text class="table-cell">0.5%</text>
+    <text class="table-cell">各地0.2%-1%</text>
+  </view>
+  <view class="table-row">
+    <text class="table-cell">住房公积金</text>
+    <text class="table-cell">5%-12%</text>
+    <text class="table-cell">单位可在范围内选择</text>
+  </view>
+  <view class="guide-tip" style="margin-top:16rpx;">
+    <text class="guide-tip-icon">💡</text>
+    <text class="guide-tip-text">五险一金缴费基数通常有上下限。具体金额请查看工资条或咨询单位HR。本工具默认按22.5%估算。</text>
+  </view>
+</view>
+
+<!-- 常见问题 -->
+<view class="glass-card" style="margin-bottom:60rpx;">
+  <view class="section-title">常见问题</view>
+
+  <view class="faq-item">
+    <view class="faq-q">Q：为什么下半年每月扣税变多了？</view>
+    <view class="faq-a">A：这是「累计预扣预缴法」的正常表现。随着累计收入增加跨入更高税率档，后续月份预扣税额自然增多。全年总税额不会多收。</view>
+  </view>
+
+  <view class="faq-item">
+    <view class="faq-q">Q：年终奖选哪种计税方式更省钱？</view>
+    <view class="faq-a">A：取决于综合收入水平。建议使用「年终奖」功能输入实际数据对比。一般年薪20万以上选单独计税较优。</view>
+  </view>
+
+  <view class="faq-item">
+    <view class="faq-q">Q：住房贷款和住房租金能同时扣吗？</view>
+    <view class="faq-a">A：不能。只能二选一。如果在工作城市租房且有首套房贷，需要比较哪个扣除额更高。</view>
+  </view>
+
+  <view class="faq-item">
+    <view class="faq-q">Q：父母不满60岁能扣赡养老人吗？</view>
+    <view class="faq-a">A：不能。被赡养人（父母或其他法定赡养人）必须年满60周岁。</view>
+  </view>
+
+  <view class="faq-item">
+    <view class="faq-q">Q：专项附加扣除需要提交证明材料吗？</view>
+    <view class="faq-a">A：申报时无需提交，但需留存相关资料备查5年（如房贷合同、租房合同、子女学籍信息等）。</view>
+  </view>
+</view>

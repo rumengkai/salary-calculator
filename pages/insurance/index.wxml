@@ -1,0 +1,120 @@
+<view class="page-header">
+  <view class="page-title">五险一金配置</view>
+  <view class="page-subtitle">输入缴费基数和比例 · 自动计算月缴金额</view>
+</view>
+
+<view class="glass-card-light" style="margin:0 32rpx 24rpx;">
+  <view class="input-unit" style="text-align:center;color:#888;line-height:1.8;">
+    提示：缴费基数通常为上年度月均工资，各地有上下限。比例为个人承担部分，已预填常见默认值，可根据工资条修改。保存后其他计算页面会自动读取。
+  </view>
+</view>
+
+<!-- 缴费基数 -->
+<view class="glass-card">
+  <view class="section-title">缴费基数</view>
+  <view class="input-group">
+    <view class="input-label">社保缴费基数（元/月）</view>
+    <input class="input-field" type="digit" placeholder="通常为上年度月平均工资，如 10000" value="{{socialBase}}" bindinput="onInput" data-field="socialBase" />
+    <view class="input-unit">即社保局核定的月缴费基数。查看工资条「缴费基数」一栏，或咨询公司HR。各地有上下限（如北京2024年下限6326元、上限35283元）。</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">公积金缴费基数（元/月）</view>
+    <input class="input-field" type="digit" placeholder="可能与社保基数不同，如 10000" value="{{fundBase}}" bindinput="onInput" data-field="fundBase" />
+    <view class="input-unit">公积金基数可能与社保基数不同。部分公司按实际工资缴纳，部分按最低标准。查工资条确认。</view>
+  </view>
+</view>
+
+<!-- 各项比例 -->
+<view class="glass-card">
+  <view class="section-title">个人缴纳比例（%）</view>
+
+  <view class="rate-item">
+    <view class="rate-row">
+      <view class="rate-info">
+        <view class="rate-name">养老保险</view>
+        <view class="rate-desc">全国统一8%，个人账户积累</view>
+      </view>
+      <view class="rate-input-wrap">
+        <input class="rate-input" type="digit" value="{{pensionRate}}" bindinput="onRateInput" data-field="pensionRate" />
+        <text class="rate-unit">%</text>
+      </view>
+    </view>
+    <view class="rate-amount" wx:if="{{pensionAmount}}">月缴：¥{{pensionAmount}}</view>
+  </view>
+
+  <view class="rate-item">
+    <view class="rate-row">
+      <view class="rate-info">
+        <view class="rate-name">医疗保险</view>
+        <view class="rate-desc">各地约2%（+大病互助几元/月）</view>
+      </view>
+      <view class="rate-input-wrap">
+        <input class="rate-input" type="digit" value="{{medicalRate}}" bindinput="onRateInput" data-field="medicalRate" />
+        <text class="rate-unit">%</text>
+      </view>
+    </view>
+    <view class="rate-amount" wx:if="{{medicalAmount}}">月缴：¥{{medicalAmount}}</view>
+  </view>
+
+  <view class="rate-item">
+    <view class="rate-row">
+      <view class="rate-info">
+        <view class="rate-name">失业保险</view>
+        <view class="rate-desc">各地0.2%-1%，常见为0.5%</view>
+      </view>
+      <view class="rate-input-wrap">
+        <input class="rate-input" type="digit" value="{{unemploymentRate}}" bindinput="onRateInput" data-field="unemploymentRate" />
+        <text class="rate-unit">%</text>
+      </view>
+    </view>
+    <view class="rate-amount" wx:if="{{unemploymentAmount}}">月缴：¥{{unemploymentAmount}}</view>
+  </view>
+
+  <view class="rate-item">
+    <view class="rate-row">
+      <view class="rate-info">
+        <view class="rate-name">住房公积金</view>
+        <view class="rate-desc">5%-12%，单位可选比例（常见12%）</view>
+      </view>
+      <view class="rate-input-wrap">
+        <input class="rate-input" type="digit" value="{{fundRate}}" bindinput="onRateInput" data-field="fundRate" />
+        <text class="rate-unit">%</text>
+      </view>
+    </view>
+    <view class="rate-amount" wx:if="{{fundAmount}}">月缴：¥{{fundAmount}}（使用公积金基数）</view>
+  </view>
+</view>
+
+<!-- 汇总 -->
+<view class="glass-card">
+  <view class="result-section">
+    <view class="result-amount">¥{{totalMonthly}}</view>
+    <view class="result-label">每月个人缴纳合计（元/月）</view>
+  </view>
+  <view class="result-row">
+    <text class="result-row-label">年度缴纳合计</text>
+    <text class="result-row-value result-highlight">¥{{totalAnnual}} 元/年</text>
+  </view>
+  <view class="result-row">
+    <text class="result-row-label">养老保险</text>
+    <text class="result-row-value">¥{{pensionAmount}} 元/月</text>
+  </view>
+  <view class="result-row">
+    <text class="result-row-label">医疗保险</text>
+    <text class="result-row-value">¥{{medicalAmount}} 元/月</text>
+  </view>
+  <view class="result-row">
+    <text class="result-row-label">失业保险</text>
+    <text class="result-row-value">¥{{unemploymentAmount}} 元/月</text>
+  </view>
+  <view class="result-row">
+    <text class="result-row-label">住房公积金</text>
+    <text class="result-row-value">¥{{fundAmount}} 元/月</text>
+  </view>
+  <view class="input-unit" style="margin-top:16rpx;text-align:center;">保存后，月度工资和年度汇算页面将自动使用此金额</view>
+</view>
+
+<view style="padding: 0 32rpx 60rpx;">
+  <button class="btn-primary" bindtap="save">保存配置</button>
+</view>

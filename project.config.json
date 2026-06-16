@@ -1,0 +1,55 @@
+{
+  "description": "个税计算器",
+  "packOptions": {
+    "ignore": [
+      {
+        "value": "node_modules",
+        "type": "file"
+      },
+      {
+        "value": "__tests__",
+        "type": "file"
+      },
+      {
+        "value": "jest.config.js",
+        "type": "file"
+      },
+      {
+        "value": "package-lock.json",
+        "type": "file"
+      }
+    ],
+    "include": []
+  },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "compileHotReLoad": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "appid": "wx3551d69cc9501ad7",
+  "projectname": "calc",
+  "compileType": "miniprogram",
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
+}

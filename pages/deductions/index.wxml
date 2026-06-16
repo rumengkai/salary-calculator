@@ -1,0 +1,128 @@
+<view class="page-header">
+  <view class="page-title">专项附加扣除</view>
+  <view class="page-subtitle">配置后自动应用到其他计算页面</view>
+</view>
+
+<view class="glass-card-light" style="margin:0 32rpx 24rpx;">
+  <view class="input-unit" style="text-align:center;color:#888;line-height:1.8;">
+    提示：开启对应项目并设置参数后，点击底部「保存配置」。月度工资、年度汇算、年终奖页面会自动读取此配置，无需重复填写。
+  </view>
+</view>
+
+<view class="glass-card">
+  <!-- 子女教育 -->
+  <view class="switch-row">
+    <view>
+      <view class="switch-label">子女教育</view>
+      <view class="switch-desc">每个子女每月2000元，3岁至博士毕业全程可扣</view>
+    </view>
+    <switch checked="{{config.childEducation}}" bindchange="onToggle" data-key="childEducation" color="#667eea" />
+  </view>
+  <view class="input-group" wx:if="{{config.childEducation}}" style="margin-top:16rpx;">
+    <view class="input-label">正在接受教育的子女数量（3岁-博士阶段）</view>
+    <view class="number-input-wrap">
+      <view class="number-stepper" bindtap="onStepper" data-key="childCount" data-dir="-1">-</view>
+      <text class="number-display">{{childCount}}</text>
+      <view class="number-stepper" bindtap="onStepper" data-key="childCount" data-dir="1">+</view>
+    </view>
+    <view class="input-unit">父母可选择各扣50%或由一方扣100%。此处按100%计算。</view>
+  </view>
+
+  <!-- 继续教育 -->
+  <view class="switch-row">
+    <view>
+      <view class="switch-label">继续教育</view>
+      <view class="switch-desc">学历(学位)教育每月400元，最长扣除48个月</view>
+    </view>
+    <switch checked="{{config.continuingEducation}}" bindchange="onToggle" data-key="continuingEducation" color="#667eea" />
+  </view>
+  <view wx:if="{{config.continuingEducation}}" style="margin-top:8rpx;padding:0 0 12rpx;">
+    <view class="input-unit">适用于在读本科/硕士/博士学历教育期间。职业资格证书（3600元/年）请在年度汇算中单独填写。</view>
+  </view>
+
+  <!-- 住房贷款利息 -->
+  <view class="switch-row">
+    <view>
+      <view class="switch-label">住房贷款利息</view>
+      <view class="switch-desc">首套房贷每月1000元，最长20年（240个月）</view>
+    </view>
+    <switch checked="{{config.housingLoan}}" bindchange="onToggle" data-key="housingLoan" color="#667eea" />
+  </view>
+  <view wx:if="{{config.housingLoan}}" style="margin-top:8rpx;padding:0 0 12rpx;">
+    <view class="input-unit">仅限首套住房贷款利息支出。如何判断首套：以贷款发放时是否享受首套利率为准。与住房租金不可同时享受。</view>
+  </view>
+
+  <!-- 住房租金 -->
+  <view class="switch-row">
+    <view>
+      <view class="switch-label">住房租金</view>
+      <view class="switch-desc">在工作城市无自有住房而租房，与房贷利息二选一</view>
+    </view>
+    <switch checked="{{config.housingRent}}" bindchange="onToggle" data-key="housingRent" color="#667eea" />
+  </view>
+  <view wx:if="{{config.housingRent}}" style="margin-top:16rpx;">
+    <view class="input-label">选择工作所在城市档次</view>
+    <view class="segment-control">
+      <view class="segment-item {{rentTier === 1 ? 'active' : ''}}" bindtap="onRentTier" data-tier="1">一线(1500)</view>
+      <view class="segment-item {{rentTier === 2 ? 'active' : ''}}" bindtap="onRentTier" data-tier="2">二档(1100)</view>
+      <view class="segment-item {{rentTier === 3 ? 'active' : ''}}" bindtap="onRentTier" data-tier="3">三档(800)</view>
+    </view>
+    <view class="input-unit">一档：直辖市、省会、计划单列市（北上广深等）；二档：户籍人口>100万的城市；三档：其他城市</view>
+  </view>
+
+  <!-- 赡养老人 -->
+  <view class="switch-row">
+    <view>
+      <view class="switch-label">赡养老人</view>
+      <view class="switch-desc">被赡养人需年满60周岁（父母或祖父母）</view>
+    </view>
+    <switch checked="{{config.elderlySupport}}" bindchange="onToggle" data-key="elderlySupport" color="#667eea" />
+  </view>
+  <view wx:if="{{config.elderlySupport}}" style="margin-top:16rpx;">
+    <view class="input-label">是否为独生子女</view>
+    <view class="segment-control">
+      <view class="segment-item {{isOnlyChild ? 'active' : ''}}" bindtap="onOnlyChild" data-val="true">独生子女(3000/月)</view>
+      <view class="segment-item {{!isOnlyChild ? 'active' : ''}}" bindtap="onOnlyChild" data-val="false">非独生(最高1500/月)</view>
+    </view>
+    <view class="input-unit">非独生子女需与兄弟姐妹分摊3000元额度，每人每月最多不超过1500元。可约定或均摊。</view>
+  </view>
+
+  <!-- 3岁以下婴幼儿照护 -->
+  <view class="switch-row">
+    <view>
+      <view class="switch-label">3岁以下婴幼儿照护</view>
+      <view class="switch-desc">每个婴幼儿每月2000元，出生当月起至满3周岁</view>
+    </view>
+    <switch checked="{{config.babycare}}" bindchange="onToggle" data-key="babycare" color="#667eea" />
+  </view>
+  <view class="input-group" wx:if="{{config.babycare}}" style="margin-top:16rpx;">
+    <view class="input-label">3岁以下婴幼儿数量</view>
+    <view class="number-input-wrap">
+      <view class="number-stepper" bindtap="onStepper" data-key="babyCount" data-dir="-1">-</view>
+      <text class="number-display">{{babyCount}}</text>
+      <view class="number-stepper" bindtap="onStepper" data-key="babyCount" data-dir="1">+</view>
+    </view>
+    <view class="input-unit">父母可各扣50%或一方扣100%。此处按100%计算。孩子满3岁后自动转入「子女教育」扣除。</view>
+  </view>
+</view>
+
+<!-- 汇总 -->
+<view class="glass-card" wx:if="{{summary}}">
+  <view class="result-section">
+    <view class="result-amount">¥{{summary.monthlyTotal}}</view>
+    <view class="result-label">每月专项附加扣除合计</view>
+  </view>
+  <view class="result-row">
+    <text class="result-row-label">年度扣除总额</text>
+    <text class="result-row-value result-highlight">¥{{summary.annualTotal}}</text>
+  </view>
+  <view class="result-row" wx:for="{{summary.details}}" wx:key="key">
+    <text class="result-row-label">{{item.label}}</text>
+    <text class="result-row-value">¥{{item.amount}}/月</text>
+  </view>
+  <view class="input-unit" style="margin-top:16rpx;text-align:center;">保存后，其他计算页面将自动使用此配置</view>
+</view>
+
+<view style="padding: 0 32rpx 60rpx;">
+  <button class="btn-primary" bindtap="save">保存配置</button>
+</view>

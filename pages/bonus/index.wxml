@@ -1,0 +1,114 @@
+<view class="page-header">
+  <view class="page-title">年终奖计税</view>
+  <view class="page-subtitle">单独计税 vs 并入综合所得 · 智能推荐</view>
+</view>
+
+<view class="glass-card">
+  <view class="input-group">
+    <view class="input-label">年终奖金额<text class="unit-tag">元</text></view>
+    <input class="input-field" type="digit" placeholder="一次性发放的年终奖，如 100000" value="{{bonus}}" bindinput="onInput" data-field="bonus" />
+    <view class="input-unit">全年一次性奖金总额。注意：36000、144000、300000等为「税率临界点」，多发1元可能多交数千元税</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年工资薪金（不含年终奖）<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="全年工资总额，如 240000" value="{{annualSalary}}" bindinput="onInput" data-field="annualSalary" />
+    <view class="input-unit">全年12个月工资薪金合计（不含本次年终奖），用于对比「并入综合所得」方案</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年五险一金（个人）<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{annualSocialInsurance}}" bindinput="onInput" data-field="annualSocialInsurance" />
+    <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」读取：¥{{savedInsurance}} 元/年</view>
+    <view class="input-unit" wx:if="{{!savedInsurance}}">全年社保+公积金个人缴纳合计，影响并入方案计算</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年专项附加扣除<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{annualSpecialDeductions}}" bindinput="onInput" data-field="annualSpecialDeductions" />
+    <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」读取：¥{{savedDeductions}} 元/年</view>
+    <view class="input-unit" wx:if="{{!savedDeductions}}">全年专项附加扣除合计，影响并入方案税率档次</view>
+  </view>
+
+  <button class="btn-primary" bindtap="calculate">对比计算</button>
+</view>
+
+<view class="glass-card-light" style="margin:0 32rpx;" wx:if="{{!result}}">
+  <view class="input-unit" style="text-align:center;color:#888;line-height:1.8;">
+    提示：年终奖可选择「单独计税」或「并入综合所得」。一般年收入较高时单独计税更优；年收入较低时并入更优。本工具帮你自动对比两种方案。
+  </view>
+</view>
+
+<block wx:if="{{result}}">
+  <!-- 推荐方案 -->
+  <view class="glass-card" wx:if="{{result.savings > 0}}">
+    <view class="result-section">
+      <view class="result-amount" style="color: #10b981;">省 ¥{{result.savingsStr}} 元</view>
+      <view class="result-label">推荐「{{result.recommendationText}}」更优</view>
+    </view>
+  </view>
+
+  <view class="glass-card" wx:if="{{result.savings == 0}}">
+    <view class="result-section">
+      <view class="result-label" style="font-size:28rpx;color:#666;">两种方式税额相同，可任选其一</view>
+    </view>
+  </view>
+
+  <!-- 单独计税 -->
+  <view class="glass-card">
+    <view class="compare-card {{result.recommendation === 'separate' ? 'recommended' : 'normal'}}">
+      <view style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20rpx;">
+        <text style="font-size:30rpx;font-weight:600;">方案一：单独计税</text>
+        <text class="badge {{result.recommendation === 'separate' ? 'badge-primary' : 'badge-gray'}}">
+          {{result.recommendation === 'separate' ? '推荐' : ''}}
+        </text>
+      </view>
+      <view class="input-unit" style="margin-bottom:16rpx;">年终奖÷12找月度税率，整笔奖金按该税率计税</view>
+      <view class="result-row">
+        <text class="result-row-label">月均值（÷12）</text>
+        <text class="result-row-value">¥{{result.separate.monthlyAvgStr}} 元</text>
+      </view>
+      <view class="result-row">
+        <text class="result-row-label">适用税率</text>
+        <text class="result-row-value">{{result.separate.rateStr}}</text>
+      </view>
+      <view class="result-row">
+        <text class="result-row-label">年终奖应纳税</text>
+        <text class="result-row-value result-highlight">¥{{result.separate.taxStr}} 元</text>
+      </view>
+      <view class="result-row">
+        <text class="result-row-label">税后年终奖</text>
+        <text class="result-row-value">¥{{result.separate.afterTaxStr}} 元</text>
+      </view>
+      <view class="result-row">
+        <text class="result-row-label">含工资的全年总税</text>
+        <text class="result-row-value">¥{{result.separate.totalTaxStr}} 元</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 并入综合所得 -->
+  <view class="glass-card">
+    <view class="compare-card {{result.recommendation === 'combined' ? 'recommended' : 'normal'}}">
+      <view style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20rpx;">
+        <text style="font-size:30rpx;font-weight:600;">方案二：并入综合所得</text>
+        <text class="badge {{result.recommendation === 'combined' ? 'badge-primary' : 'badge-gray'}}">
+          {{result.recommendation === 'combined' ? '推荐' : ''}}
+        </text>
+      </view>
+      <view class="input-unit" style="margin-bottom:16rpx;">年终奖加入全年综合收入，统一按年度税率表计税</view>
+      <view class="result-row">
+        <text class="result-row-label">年终奖部分应纳税</text>
+        <text class="result-row-value result-highlight">¥{{result.combined.bonusTaxStr}} 元</text>
+      </view>
+      <view class="result-row">
+        <text class="result-row-label">税后年终奖</text>
+        <text class="result-row-value">¥{{result.combined.afterTaxBonusStr}} 元</text>
+      </view>
+      <view class="result-row">
+        <text class="result-row-label">全年总税</text>
+        <text class="result-row-value">¥{{result.combined.totalTaxStr}} 元</text>
+      </view>
+    </view>
+  </view>
+</block>

@@ -1,0 +1,69 @@
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid rgba(102, 126, 234, 0.15);
+}
+
+.rate-item {
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.rate-item:last-child {
+  border-bottom: none;
+}
+
+.rate-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rate-info {
+  flex: 1;
+}
+
+.rate-name {
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.rate-desc {
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.rate-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.rate-input {
+  width: 120rpx;
+  height: 64rpx;
+  background: rgba(102, 126, 234, 0.06);
+  border: 2rpx solid rgba(102, 126, 234, 0.15);
+  border-radius: 12rpx;
+  text-align: center;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+}
+
+.rate-unit {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.rate-amount {
+  font-size: 24rpx;
+  color: #667eea;
+  margin-top: 8rpx;
+  font-weight: 500;
+}

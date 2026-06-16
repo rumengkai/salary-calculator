@@ -1,0 +1,90 @@
+<view class="page-header">
+  <view class="page-title">年度汇算</view>
+  <view class="page-subtitle">综合所得 · 多收入类型合并计税</view>
+</view>
+
+<view class="glass-card">
+  <view class="input-group">
+    <view class="input-label">年工资薪金收入<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="全年税前工资总额，如 240000" value="{{annualSalary}}" bindinput="onInput" data-field="annualSalary" />
+    <view class="input-unit">12个月税前工资合计，含月薪、绩效、加班费（不含年终奖）</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年五险一金（个人）<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{annualSocialInsurance}}" bindinput="onInput" data-field="annualSocialInsurance" />
+    <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」自动计算：¥{{savedInsurance}} 元/年</view>
+    <view class="input-unit" wx:if="{{!savedInsurance}}">全年个人缴纳的社保+公积金合计。不确定？去首页配置五险一金。</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年专项附加扣除<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{annualSpecialDeductions}}" bindinput="onInput" data-field="annualSpecialDeductions" />
+    <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」自动计算：¥{{savedDeductions}} 元/年</view>
+    <view class="input-unit" wx:if="{{!savedDeductions}}">子女教育+继续教育+住房+赡养老人+婴幼儿照护年度合计</view>
+  </view>
+
+  <view class="input-label" style="margin-top:32rpx;padding-top:24rpx;border-top:1rpx solid rgba(0,0,0,0.06);color:#999;font-size:24rpx;">以下为选填项（无则留空）</view>
+
+  <view class="input-group">
+    <view class="input-label">年劳务报酬收入<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="兼职/自由职业收入，无则留空" value="{{annualLabor}}" bindinput="onInput" data-field="annualLabor" />
+    <view class="input-unit">兼职、顾问、讲课等劳务性收入合计（税法按80%计入综合所得）</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年稿酬收入<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="出版/发表文章收入，无则留空" value="{{annualRoyalty}}" bindinput="onInput" data-field="annualRoyalty" />
+    <view class="input-unit">出书、投稿等稿酬合计（税法按56%计入，享受额外30%减征）</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">年特许权使用费<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="专利/著作权许可收入，无则留空" value="{{annualLicense}}" bindinput="onInput" data-field="annualLicense" />
+    <view class="input-unit">专利、著作权、商标等知识产权许可使用费（按80%计入）</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">大病医疗扣除<text class="unit-tag">元/年</text></view>
+    <input class="input-field" type="digit" placeholder="超出15000元的自付部分，无则留空" value="{{seriousIllness}}" bindinput="onInput" data-field="seriousIllness" />
+    <view class="input-unit">医保目录范围内个人自付累计超过15000元的部分，年限额80000元</view>
+  </view>
+
+  <button class="btn-primary" bindtap="calculate">计算年度应纳税额</button>
+</view>
+
+<view class="glass-card-light" style="margin:0 32rpx;" wx:if="{{!result}}">
+  <view class="input-unit" style="text-align:center;color:#888;line-height:1.8;">
+    提示：年度汇算将工资、劳务、稿酬、特许权使用费合并为「综合所得」，统一适用3%-45%超额累进税率。如已通过单位预扣预缴，汇算可能产生退税或补税。
+  </view>
+</view>
+
+<block wx:if="{{result}}">
+  <view class="glass-card">
+    <view class="result-section">
+      <view class="result-amount">¥{{result.annualTaxStr}}</view>
+      <view class="result-label">年度应纳个税</view>
+    </view>
+
+    <view class="result-row">
+      <text class="result-row-label">综合所得收入额</text>
+      <text class="result-row-value">¥{{result.totalIncomeStr}} 元</text>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">应纳税所得额</text>
+      <text class="result-row-value">¥{{result.taxableIncomeStr}} 元</text>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">适用最高税率</text>
+      <text class="result-row-value result-highlight">{{result.rateStr}}</text>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">速算扣除数</text>
+      <text class="result-row-value">¥{{result.deductionStr}} 元</text>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">实际税负率</text>
+      <text class="result-row-value result-highlight">{{result.effectiveRateStr}}</text>
+    </view>
+  </view>
+</block>

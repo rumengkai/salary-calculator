@@ -1,0 +1,72 @@
+<view class="page-header">
+  <view class="page-title">月度工资个税</view>
+  <view class="page-subtitle">累计预扣预缴法 · 12个月明细</view>
+</view>
+
+<view class="glass-card">
+  <view class="input-group">
+    <view class="input-label">月薪（税前）<text class="unit-tag">元/月</text></view>
+    <input class="input-field" type="digit" placeholder="每月固定工资总额，如 15000" value="{{monthlySalary}}" bindinput="onSalaryInput" />
+    <view class="input-unit">填写劳动合同约定的税前月薪，含基本工资、绩效、津贴等（不含年终奖）</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">五险一金（个人月缴）<text class="unit-tag">元/月</text></view>
+    <input class="input-field" type="digit" placeholder="{{insurancePlaceholder}}" value="{{socialInsurance}}" bindinput="onInsuranceInput" />
+    <view class="input-unit" wx:if="{{savedInsurance > 0}}" style="color:#667eea;">已从「五险一金配置」读取：¥{{savedInsurance}} 元/月，可直接使用或修改</view>
+    <view class="input-unit" wx:if="{{!savedInsurance}}">不确定？去首页「五险一金」配置页输入基数和比例自动计算</view>
+    <view class="input-unit" wx:if="{{monthlySalary && !savedInsurance}}">按默认比例22.5%估算：约 ¥{{defaultInsurance}} 元/月，建议查工资条确认</view>
+  </view>
+
+  <view class="input-group">
+    <view class="input-label">专项附加扣除<text class="unit-tag">元/月</text></view>
+    <input class="input-field" type="digit" placeholder="{{deductionsPlaceholder}}" value="{{specialDeductions}}" bindinput="onDeductionsInput" />
+    <view class="input-unit" wx:if="{{savedDeductions > 0}}" style="color:#667eea;">已从「专项扣除配置」读取：¥{{savedDeductions}} 元/月</view>
+    <view class="input-unit" wx:if="{{!savedDeductions}}">包含子女教育、房贷/房租、赡养老人等，可去首页「专项扣除」配置</view>
+  </view>
+
+  <button class="btn-primary" bindtap="calculate">开始计算</button>
+</view>
+
+<view class="glass-card-light" style="margin:0 32rpx;" wx:if="{{!result}}">
+  <view class="input-unit" style="text-align:center;color:#888;line-height:1.8;">
+    提示：工资个税按「累计预扣预缴法」逐月递增计算，年初税率低、年末税率高，属正常现象。计算结果展示12个月每月实缴税额。
+  </view>
+</view>
+
+<block wx:if="{{result}}">
+  <view class="glass-card">
+    <view class="result-section">
+      <view class="result-amount">¥{{result.annualTax}}</view>
+      <view class="result-label">全年累计个税</view>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">年税后收入</text>
+      <text class="result-row-value result-highlight">¥{{result.annualAfterTax}} 元</text>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">月均税后收入</text>
+      <text class="result-row-value">¥{{monthlyAfterTax}} 元</text>
+    </view>
+    <view class="result-row">
+      <text class="result-row-label">综合税负率</text>
+      <text class="result-row-value">{{effectiveRate}}</text>
+    </view>
+  </view>
+
+  <view class="glass-card">
+    <view class="input-label">12个月明细（税额逐月递增为正常现象）</view>
+    <view class="table-header">
+      <text class="table-cell table-cell-header">月份</text>
+      <text class="table-cell table-cell-header">当月个税</text>
+      <text class="table-cell table-cell-header">累计个税</text>
+      <text class="table-cell table-cell-header">税后收入</text>
+    </view>
+    <view class="table-row" wx:for="{{result.monthlyResults}}" wx:key="month">
+      <text class="table-cell">{{item.month}}月</text>
+      <text class="table-cell">{{item.monthlyTaxStr}}</text>
+      <text class="table-cell">{{item.cumulativeTaxStr}}</text>
+      <text class="table-cell">{{item.afterTaxStr}}</text>
+    </view>
+  </view>
+</block>

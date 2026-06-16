@@ -1,0 +1,125 @@
+.section-title {
+  font-size: 34rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20rpx;
+  padding-bottom: 16rpx;
+  border-bottom: 2rpx solid rgba(102, 126, 234, 0.15);
+}
+
+.guide-text {
+  font-size: 28rpx;
+  color: #555;
+  line-height: 1.8;
+}
+
+.guide-highlight {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(102, 126, 234, 0.08);
+  border-radius: 12rpx;
+  padding: 20rpx 24rpx;
+  margin-top: 16rpx;
+}
+
+.guide-highlight-label {
+  font-size: 28rpx;
+  color: #666;
+  font-weight: 500;
+}
+
+.guide-highlight-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.guide-formula {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 12rpx;
+  padding: 24rpx;
+  margin-top: 16rpx;
+  font-size: 26rpx;
+  color: #444;
+  font-family: 'Courier New', monospace;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.guide-tip {
+  display: flex;
+  gap: 12rpx;
+  background: rgba(251, 191, 36, 0.1);
+  border-radius: 12rpx;
+  padding: 20rpx 24rpx;
+  margin-top: 16rpx;
+  align-items: flex-start;
+}
+
+.guide-tip-icon {
+  font-size: 28rpx;
+  flex-shrink: 0;
+}
+
+.guide-tip-text {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.7;
+}
+
+.deduction-item {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.04);
+}
+
+.deduction-item:last-child {
+  border-bottom: none;
+}
+
+.deduction-name {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.deduction-detail {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.7;
+}
+
+.guide-list {
+  margin-top: 8rpx;
+}
+
+.guide-list-item {
+  font-size: 26rpx;
+  color: #555;
+  line-height: 2;
+  padding-left: 8rpx;
+}
+
+.faq-item {
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid rgba(0, 0, 0, 0.04);
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+}
+
+.faq-q {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 12rpx;
+}
+
+.faq-a {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.8;
+  padding-left: 8rpx;
+}

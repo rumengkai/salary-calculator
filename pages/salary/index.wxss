@@ -1,0 +1,14 @@
+.table-row:nth-child(even) {
+  background: rgba(102, 126, 234, 0.03);
+}
+
+.unit-tag {
+  display: inline-block;
+  font-size: 22rpx;
+  color: #667eea;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 6rpx;
+  padding: 2rpx 10rpx;
+  margin-left: 12rpx;
+  font-weight: 500;
+}
